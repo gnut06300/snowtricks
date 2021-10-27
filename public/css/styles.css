@@ -1,0 +1,33 @@
+h1 {
+  color: blue;
+}
+
+.banner {
+  margin :0;
+  padding: 0;
+  position: relative;
+}
+
+.bannerPicture img {
+  width: 100%;
+  max-width: 100%;
+  margin : 0px auto 20px auto;
+}
+
+.inner-banner{
+  position: absolute;
+  top :10%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.inner-banner h1 {
+  color: #ffffff;
+  text-shadow: 2px 2px 30px #000000 ;
+	
+}
+
+.logo {
+  width: 40%;
+}

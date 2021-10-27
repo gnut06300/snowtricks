@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="{{ path('homepage') }}"><img class="logo" src="{{ asset('pictures/logo.png') }}" alt="logo"></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0 pe-5">
+				<li class="nav-item">
+					<a class="nav-link" aria-current="page" href="{{ path('homepage') }}">ACCUEIL</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('homepage') }}#tricks">TRICKS</a>
+				</li>
+                <li class="nav-item">
+					<a class="nav-link" href="#">CREER TRICK</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">CONNEXION</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">INSCRIPTION</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+	<!-- banner -->
+	<section class="container-fluid banner mb-0">
+		<div class="bannerPicture">
+			<img class="ban" src="{{ asset('pictures/banner_1.jpg') }}" alt="Photo de SnowStricks">
+		</div>
+		<div class="inner-banner">
+			<h1>SnowTricks</h1>
+		</div>
+	</section>
+	<!-- end banner -->
+	{% for label, messages in  app.flashes %}
+		<div class="alert alert-{{label}} alert-dismissible fade show text-center mt-0" role="alert">
+		    {% for message in messages %}
+		    <strong>{{message}}</strong><br>
+		    {% endfor %}
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+	{% endfor %}

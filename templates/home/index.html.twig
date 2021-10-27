@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tricks
+{% endblock %}
+
+{% block body %}
+	<h1 id="tricks" class="text-center my-5">Tricks</h1>
+	<div class="row">
+		{% for trick in tricks %}
+			<div class="col-lg-2">
+				<div class="card shadow-lg">
+					<img src="http://via.placeholder.com/1600x900" class="card-img-top" alt="{{ trick.name}}">
+					<div class="card-body">
+						<h5 class="card-title">{{ trick.name}}</h5>
+						<p class="card-text">{{ trick.description |slice(0, 50)}}...</p>
+						<a href="{{ path('strick_show') }}" class="btn btn-primary">En voir plus</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}
