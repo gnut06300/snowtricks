@@ -2,29 +2,31 @@
 
 namespace App\Controller;
 
+use App\Entity\Trick;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class StrickController extends AbstractController
+class TrickController extends AbstractController
 {
     /**
-     * @Route("/strick", name="strick")
+     * @Route("/trick", name="strick")
      */
     public function index(): Response
     {
-        return $this->render('strick/index.html.twig', [
+        return $this->render('trick/index.html.twig', [
             'controller_name' => 'StrickController',
         ]);
     }
 
     /**
-     * @Route("/strick/mute", name="strick_show")
+     * @Route("/trick/{slug}", name="trick_show")
      */
-    public function showStricks(): Response
+    public function showTricks(Trick $trick): Response
     {
-        return $this->render('strick/show.html.twig', [
+        return $this->render('trick/show.html.twig', [
             'controller_name' => 'StrickController',
+            'trick' => $trick
         ]);
     }
 }
