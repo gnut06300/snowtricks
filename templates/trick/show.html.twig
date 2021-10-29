@@ -13,7 +13,7 @@
 						<h5 class="card-title">{{trick.name}}</h5>
 						<small class="bg-light">Posté le {{ trick.createdAt | date('d/m/Y')}}</small>
 						<p class="card-text">{{trick.description |  raw}}</p>
-						
+						<a href="{{ path('trick_edit', {'slug': trick.slug }) }}"><i class="fas fa-pencil-alt"></i></a>{{ include('trick/_delete_form.html.twig') }}
 					</div>
 				</div>
 			</div>

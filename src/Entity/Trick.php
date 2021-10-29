@@ -41,8 +41,17 @@ class Trick
     private $description;
 
     /**
-     * @Assert\Url
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 255,
+     *      minMessage = "L'url doit faire un minimum de {{ limit }} caractéres",
+     *      maxMessage = "L'url doit faire au maximum {{ limit }} caractéres",
+     *      allowEmptyString = false
+     * )
+     * @Assert\Url(
+     *    message = "The url '{{ value }}' is not a valid url",
+     * )
+     * @ORM\Column(type="string", length=255)
      */
     private $picture;
 
