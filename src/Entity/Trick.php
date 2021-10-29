@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\TrickRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @UniqueEntity(fields={"name"}, message="Ce Trick existe déjà")
  * @ORM\Entity(repositoryClass=TrickRepository::class)
  */
 class Trick
@@ -18,16 +21,27 @@ class Trick
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 100,
+     *      minMessage = "Le nom du Trick doit avoir au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom du Trick doit avoir au plus {{ limit }} caractères"
+     * )
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 
     /**
+     * @Assert\Length(
+     *      min = 4,
+     *      minMessage = "La description du Trick doit avoir au moins {{ limit }} caractères",
+     * )
      * @ORM\Column(type="text")
      */
     private $description;
 
     /**
+     * @Assert\Url
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
