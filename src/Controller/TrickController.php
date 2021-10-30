@@ -46,6 +46,10 @@ class TrickController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             if (!$trick->getId()) {
                 $trick->setCreatedAt(new \DateTime());
+                $this->addFlash('success', "Le Trick \"".$trick->getName()."\" à bien été créé");
+           }
+           else {
+               $this->addFlash('success', "Le Trick à bien été modifié");
            }
             $trick->setSlug(strtolower($slugger->slug($trick->getName(),'_')));
 
@@ -73,17 +77,17 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="trick_delete") // Voir , methods={"DELETE"}
+     * @Route("/delete/{id}", name="trick_delete", methods={"DELETE"}) // Voir , methods={"DELETE"}
      */
     public function delete(Request $request, Trick $trick): Response
     {
-        dump($trick);
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($trick);
             $entityManager->flush();
         }
 
+        $this->addFlash('danger', "Le Trick \"" .$trick->getName()."\" à bien été supprimé");
         return $this->redirectToRoute('homepage');
     }
 }
