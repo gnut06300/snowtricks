@@ -28,5 +28,11 @@ h1 {
 }
 
 .logo {
-  width: 180px;
+  width: 150px;
 }
+
+.logo_2 {
+  width: 25%;
+  filter: drop-shadow(10px 10px 5px #000);
+}
+
