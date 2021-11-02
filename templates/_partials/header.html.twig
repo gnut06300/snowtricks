@@ -12,15 +12,21 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('homepage') }}#tricks">TRICKS</a>
 				</li>
+				{% if app.user %}
                 <li class="nav-item">
 					<a class="nav-link" href="{{ path('trick_create')}}">CREER TRICK</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">CONNEXION</a>
+					<a class="nav-link" href="{{ path('app_logout')}}">DÉCONNEXION</a>
+				</li>
+				{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_login')}}">CONNEXION</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">INSCRIPTION</a>
+					<a class="nav-link" href="{{ path('app_register')}}">INSCRIPTION</a>
 				</li>
+				{% endif %}
 			</ul>
 		</div>
 	</div>
