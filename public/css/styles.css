@@ -36,3 +36,9 @@ h1 {
   filter: drop-shadow(10px 10px 5px #000);
 }
 
+fieldset {
+  border: 2px solid blue;
+  padding: 20px 20px 10px 20px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
+}
