@@ -45,7 +45,8 @@ class TrickController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             if (!$trick->getId()) {
-                $trick->setCreatedAt(new \DateTime());
+                $trick->setCreatedAt(new \DateTime())
+                    ->setAuthor($this->getUser());
                 $this->addFlash('success', "Le Trick \"".$trick->getName()."\" à bien été créé");
            }
            else {
