@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\User;
 use App\Entity\Trick;
 use App\Entity\Category;
+use App\Entity\Picture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -57,6 +58,7 @@ class TrickFixtures extends Fixture
                         ->setSlug($this->slugger->slug($category->getTitle())->lower());
                 
                 $manager->persist($category);
+
                 for ($i=1; $i <= mt_rand(1,5) ; $i++) { 
                     $trick = new Trick();
         
@@ -71,6 +73,14 @@ class TrickFixtures extends Fixture
                         ->setAuthor($user);
         
                     $manager->persist($trick);
+
+                    for ($p=1; $p <= mt_rand(1,3) ; $p++) { 
+                        $picture = new Picture();
+
+                        $picture->setFile("image $u-$j-$i-$p")
+                                ->setTrick($trick);
+                        $manager->persist($picture);
+                    }
         
                 }
             }

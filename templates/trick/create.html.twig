@@ -1,21 +1,71 @@
 {% extends 'base.html.twig' %}
 {% form_theme formTrick 'bootstrap_5_layout.html.twig' %}
 
-{% block title %}Formulaire de création{% endblock %}
+{% block title %}Formulaire de création
+{% endblock %}
 
 {% block body %}
-    <h1>Création d'un trick</h1>
-    {{ form_start(formTrick) }}
-    {{ form_row(formTrick.name, {'attr': {'placeholder': "Nom du Trick", 'autofocus' : true}, 'label': "Nom du Trick"})}}
-    {{ form_row(formTrick.category, {'label': "Catégorie du Trick"})}}
-    {{ form_row(formTrick.description, {'attr': {'placeholder': "Description du Trick", 'rows' : '8'}, 'label': "Description du Trick"})}}
-    {{ form_row(formTrick.picture, {'attr': {'placeholder': "URL de l'image"}, 'label': "URL de l'image du Trick"})}}
-    <button type="submit" class="btn btn-success">
-        {% if editMode %}
-            Enregister les modifications
-        {% else %}
-            Ajouter l'article
-        {% endif %}
-    </button>
-    {{ form_end(formTrick)}}
+	<h1>Création d'un trick</h1>
+	{{ form_start(formTrick) }}
+	{{ form_row(formTrick.name, {'attr': {'placeholder': "Nom du Trick", 'autofocus' : true}, 'label': "Nom du Trick"})}}
+	{{ form_row(formTrick.category, {'label': "Catégorie du Trick"})}}
+	{{ form_row(formTrick.description, {'attr': {'placeholder': "Description du Trick", 'rows' : '8'}, 'label': "Description du Trick"})}}
+	{{ form_row(formTrick.picture, {'attr': {'placeholder': "URL de l'image"}, 'label': "URL de l'image du Trick"})}}
+	{#<div id="pictures" data-prototype="{{ form_row(formTrick.pictures.vars.prototype)|e('html_attr') }}">
+				{{ form_row(formTrick.pictures)}}
+				<span></span>
+			</div>#}
+	<h3>Images</h3>
+	<ul class="pictures" data-index="{{ formTrick.pictures|length > 0 ? formTrick.pictures|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(formTrick.pictures.vars.prototype)|e('html_attr') }}">
+		<button type="button" class="add_item_link" data-collection-holder-class="pictures">Ajouter une image</button>
+		{% for picture in formTrick.pictures %}
+			<li class="item">{{ form_row(picture.file) }}</li>
+		{% endfor %}
+	</ul>
+	<button type="submit" class="btn btn-success">
+		{% if editMode %}
+			Enregister les modifications
+		{% else %}
+			Ajouter l'article
+		{% endif %}
+	</button>
+	{{ form_end(formTrick)}}
+{% endblock %}
+{% block javascripts %}
+	<script>
+		const addFormToCollection = (e) => {
+const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+const item = document.createElement('li');
+
+item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
+
+collectionHolder.appendChild(item);
+
+collectionHolder.dataset.index ++;
+
+addTagFormDeleteLink(item);
+};
+
+const addTagFormDeleteLink = (tagFormLi) => {
+const removeFormButton = document.createElement('button')
+removeFormButton.classList = "btn btn-danger"
+removeFormButton.innerText = 'Delete this image'
+tagFormLi.append(removeFormButton);
+
+removeFormButton.addEventListener('click', (e) => {
+e.preventDefault()
+// remove the li for the tag form
+tagFormLi.remove();
+});
+}
+
+
+document.querySelectorAll('.add_item_link').forEach(btn => btn.addEventListener("click", addFormToCollection));
+
+var items = document.getElementsByClassName("item");
+for (i = 0; i < items.length; i ++) {
+addTagFormDeleteLink(items[i])
+}
+	</script>
 {% endblock %}

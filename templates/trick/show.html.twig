@@ -12,7 +12,13 @@
 					<div class="card-body">
 						<h5 class="card-title">{{trick.name}}</h5>
 						<small class="bg-light">Posté le {{ trick.createdAt | date('d/m/Y')}} -  <button type="button" class="btn btn-primary"> Categorie : {{ trick.category.title }}</button></small>
+						<p>
+						{% for picture in trick.pictures %}
+							{{ picture.file }} |
+						{% endfor %}
+						</p>
 						<p class="card-text">{{trick.description |  raw}}</p>
+						
 						{% if (app.user and app.user == trick.author) or is_granted('ROLE_ADMIN') %}
 						<a href="{{ path('trick_edit', {'slug': trick.slug }) }}"><i class="fas fa-pencil-alt"></i></a>{{ include('trick/_delete_form.html.twig') }}
 						{% endif %}
