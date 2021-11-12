@@ -42,3 +42,14 @@ fieldset.userInterface {
   border-radius: 10px;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
 }
+
+li.item {
+  list-style-type: "\1F44D";
+}
+
+ul.videos {
+  border: 1px dashed blue;
+  border-radius: 30px;
+  padding: 25px 35px 20px 35px;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
+}

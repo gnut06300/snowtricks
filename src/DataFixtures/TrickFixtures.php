@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Trick;
 use App\Entity\Category;
 use App\Entity\Picture;
+use App\Entity\Video;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -80,6 +81,14 @@ class TrickFixtures extends Fixture
                         $picture->setFile("image $u-$j-$i-$p")
                                 ->setTrick($trick);
                         $manager->persist($picture);
+                    }
+
+                    for ($v=0; $v <= mt_rand(1,2) ; $v++) { 
+                        $video = new Video();
+
+                        $video->setUrl("https://www.youtube.com/embed/0Oez89EoE_c")
+                            ->setTrick($trick);
+                        $manager->persist($video);
                     }
         
                 }

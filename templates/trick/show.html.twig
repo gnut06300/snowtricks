@@ -17,6 +17,15 @@
 							{{ picture.file }} |
 						{% endfor %}
 						</p>
+						<div class="row">
+						{% for video in trick.videos %}
+							<div class="col-lg-4 my-2">
+								<div class="ratio ratio-16x9">
+									<iframe src="{{ video.url }}" title="Video {{ trick.name }}" allowfullscreen></iframe>
+								</div>
+							</div>
+						{% endfor %}
+						</div>
 						<p class="card-text">{{trick.description |  raw}}</p>
 						
 						{% if (app.user and app.user == trick.author) or is_granted('ROLE_ADMIN') %}

@@ -11,15 +11,11 @@
 	{{ form_row(formTrick.category, {'label': "Catégorie du Trick"})}}
 	{{ form_row(formTrick.description, {'attr': {'placeholder': "Description du Trick", 'rows' : '8'}, 'label': "Description du Trick"})}}
 	{{ form_row(formTrick.picture, {'attr': {'placeholder': "URL de l'image"}, 'label': "URL de l'image du Trick"})}}
-	{#<div id="pictures" data-prototype="{{ form_row(formTrick.pictures.vars.prototype)|e('html_attr') }}">
-				{{ form_row(formTrick.pictures)}}
-				<span></span>
-			</div>#}
-	<h3>Images</h3>
-	<ul class="pictures" data-index="{{ formTrick.pictures|length > 0 ? formTrick.pictures|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(formTrick.pictures.vars.prototype)|e('html_attr') }}">
-		<button type="button" class="add_item_link" data-collection-holder-class="pictures">Ajouter une image</button>
-		{% for picture in formTrick.pictures %}
-			<li class="item">{{ form_row(picture.file) }}</li>
+	<h3>Vidéos :</h3>
+	<ul class="videos" data-index="{{ formTrick.videos|length > 0 ? formTrick.videos|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(formTrick.videos.vars.prototype)|e('html_attr') }}">
+		<button type="button" class="add_item_link btn btn-primary mb-3" data-collection-holder-class="videos">Ajouter une vidéo</button>
+		{% for video in formTrick.videos %}
+			<li class="item">{{ form_row(video.url) }}</li>
 		{% endfor %}
 	</ul>
 	<button type="submit" class="btn btn-success">
@@ -34,38 +30,38 @@
 {% block javascripts %}
 	<script>
 		const addFormToCollection = (e) => {
-const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+        const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
-const item = document.createElement('li');
+        const item = document.createElement('li');
 
-item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
+        item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
 
-collectionHolder.appendChild(item);
+        collectionHolder.appendChild(item);
 
-collectionHolder.dataset.index ++;
+        collectionHolder.dataset.index ++;
 
-addTagFormDeleteLink(item);
-};
+        addTagFormDeleteLink(item);
+        };
 
-const addTagFormDeleteLink = (tagFormLi) => {
-const removeFormButton = document.createElement('button')
-removeFormButton.classList = "btn btn-danger"
-removeFormButton.innerText = 'Delete this image'
-tagFormLi.append(removeFormButton);
+        const addTagFormDeleteLink = (tagFormLi) => {
+        const removeFormButton = document.createElement('button')
+        removeFormButton.classList = "btn btn-danger mb-3"
+        removeFormButton.innerText = 'Supprimer la vidéo'
+        tagFormLi.append(removeFormButton);
 
-removeFormButton.addEventListener('click', (e) => {
-e.preventDefault()
-// remove the li for the tag form
-tagFormLi.remove();
-});
-}
+        removeFormButton.addEventListener('click', (e) => {
+        e.preventDefault()
+        // remove the li for the tag form
+        tagFormLi.remove();
+        });
+        }
 
 
-document.querySelectorAll('.add_item_link').forEach(btn => btn.addEventListener("click", addFormToCollection));
+        document.querySelectorAll('.add_item_link').forEach(btn => btn.addEventListener("click", addFormToCollection));
 
-var items = document.getElementsByClassName("item");
-for (i = 0; i < items.length; i ++) {
-addTagFormDeleteLink(items[i])
-}
+        var items = document.getElementsByClassName("item");
+        for (i = 0; i < items.length; i ++) {
+        addTagFormDeleteLink(items[i])
+        }
 	</script>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Trick;
+use App\Form\VideoType;
 use App\Entity\Category;
 use App\Form\PictureType;
 use Symfony\Component\Form\AbstractType;
@@ -23,8 +24,8 @@ class TrickType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'title',
              ])
-            ->add('pictures', CollectionType::class, [
-                'entry_type' => PictureType::class,
+            ->add('videos', CollectionType::class, [
+                'entry_type' => VideoType::class,
                 'label' => false,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
