@@ -12,11 +12,13 @@
 					<div class="card-body">
 						<h5 class="card-title">{{trick.name}}</h5>
 						<small class="bg-light">Posté le {{ trick.createdAt | date('d/m/Y')}} -  <button type="button" class="btn btn-primary"> Categorie : {{ trick.category.title }}</button></small>
-						<p>
+						<div class="row">
 						{% for picture in trick.pictures %}
-							{{ picture.file }} |
+							<div class="col-lg-4 my-3">
+							<img class="picturesTrick" src="{{ asset('uploads/' ~ picture.file ) }}" alt="image {{ trick.name }}">
+							</div>
 						{% endfor %}
-						</p>
+						</div>
 						<div class="row">
 						{% for video in trick.videos %}
 							<div class="col-lg-4 my-2">

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Entity\Picture;
 use App\Form\TrickType;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +20,7 @@ class TrickController extends AbstractController
      */
     public function index(): Response
     {
+        dump($this->getUser());
         return $this->render('trick/index.html.twig', [
             'controller_name' => 'StrickController',
         ]);
@@ -32,7 +35,9 @@ class TrickController extends AbstractController
         if(!$trick){
             $trick = new Trick();
         }
-
+        elseif (($trick->getAuthor() !== $this->getUser()) and !$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
         /* $form = $this->createFormBuilder($trick)
                     ->add('name')
                     ->add('description')
@@ -52,6 +57,28 @@ class TrickController extends AbstractController
            else {
                $this->addFlash('success', "Le Trick à bien été modifié");
            }
+            //we recover the transmitted images
+            //dd($request->files->get('trick')['pictures'][0]->getClientOriginalName());
+            //dd($form->get('pictures')->getData());
+            $pictures = $form->get('pictures')->getData();
+
+            //we loop on the pictures
+            foreach($pictures as $picture){
+                //we generate a new file name
+                $fichier = md5(uniqid()) . '.' . $picture->guessExtension();
+
+                //we copy the file to the upload folder
+                $picture->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                //store the name of the image in the database
+                $img = new Picture();
+                $img->setFile($fichier);
+                $trick->addPicture($img);
+            }
+
             $trick->setSlug(strtolower($slugger->slug($trick->getName(),'_')));
 
             $manager->persist($trick);
@@ -80,9 +107,17 @@ class TrickController extends AbstractController
     /**
      * @Route("/delete/{id}", name="trick_delete", methods={"DELETE"}) // Voir , methods={"DELETE"}
      */
-    public function delete(Request $request, Trick $trick): Response
+    public function delete(Request $request, Trick $trick, PictureService $pictureService): Response
     {
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
+            foreach ($trick->getPictures() as $image) 
+            {
+           
+            //dump($_SERVER['DOCUMENT_ROOT'].'uploads'. DIRECTORY_SEPARATOR .$image->getFile());
+            //unlink($this->getParameter('images_directory'). '/' .$image->getFile());
+            $pictureService->deletePicture($image->getFile());
+            }
+           
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($trick);
             $entityManager->flush();

@@ -6,10 +6,12 @@ use App\Entity\Trick;
 use App\Form\VideoType;
 use App\Entity\Category;
 use App\Form\PictureType;
+use PhpParser\Parser\Multiple;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickType extends AbstractType
@@ -32,7 +34,14 @@ class TrickType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ])
-            //->add('slug')
+            //we add the picture field
+            //it is not linked to the database (mapped false)
+            ->add('pictures', FileType::class, [
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
+            ])
         ;
     }
 
