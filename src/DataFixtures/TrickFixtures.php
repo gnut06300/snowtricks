@@ -78,7 +78,7 @@ class TrickFixtures extends Fixture
                     for ($p=1; $p <= mt_rand(1,3) ; $p++) { 
                         $picture = new Picture();
 
-                        $picture->setFile("image $u-$j-$i-$p")
+                        $picture->setFile("bb720067cfb87feee50a02b587479ac0.jpg")
                                 ->setTrick($trick);
                         $manager->persist($picture);
                     }

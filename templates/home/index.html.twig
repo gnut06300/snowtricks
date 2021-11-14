@@ -9,10 +9,16 @@
 		{% for trick in tricks %}
 			<div class="col-lg-2 mb-5">
 				<div class="card shadow-lg">
-					<img src="{{ trick.picture }}" class="card-img-top" alt="{{ trick.name}}">
+					{# <img src="{{ trick.picture }}" class="card-img-top" alt="{{ trick.name}}"> #}
+					{% if trick.pictures | length > 0 %}
+					<img src="{{ asset('/uploads/' ~ trick.pictures[0].file) }}" class="card-img-top" alt="{{ trick.name}}">
+					{% else %}
+					<img src="http://via.placeholder.com/1600x900" class="card-img-top" alt="{{ trick.name}}">	
+					{% endif %}
 					<div class="card-body">
 						<h5 class="card-title"><a href="{{ path('trick_show', {'slug': trick.slug }) }}">{{ trick.name}}</a>
-						{% if (app.user and app.user == trick.author) or is_granted('ROLE_ADMIN') %}
+						{# {{% if (app.user and app.user == trick.author) or is_granted('ROLE_ADMIN') %}} #}
+						{% if is_granted('edit', trick) %}
 							<small>
 								<a href="{{ path('trick_edit', {'slug': trick.slug }) }}">
 									<i class="fas fa-pencil-alt"></i>

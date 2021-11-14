@@ -5,11 +5,11 @@ namespace App\Form;
 use App\Entity\Trick;
 use App\Form\VideoType;
 use App\Entity\Category;
-use App\Form\PictureType;
-use PhpParser\Parser\Multiple;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -40,7 +40,19 @@ class TrickType extends AbstractType
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'constraints' => [
+                    new All([
+                        'constraints' => [
+                            new Image([
+                                'allowPortrait' => false,
+                                //'minWidth' => 20000,
+                                'maxSize' => '4096k',
+                            ])
+                        ],
+                    ]),
+                ],
+                'data_class' => null
             ])
         ;
     }

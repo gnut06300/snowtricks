@@ -34,10 +34,13 @@ class TrickController extends AbstractController
     {
         if(!$trick){
             $trick = new Trick();
+            $this->denyAccessUnlessGranted('create',$trick);
+        } else {
+            $this->denyAccessUnlessGranted('edit',$trick);
         }
-        elseif (($trick->getAuthor() !== $this->getUser()) and !$this->isGranted('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException();
-        }
+        // elseif (($trick->getAuthor() !== $this->getUser()) and !$this->isGranted('ROLE_ADMIN')) {
+        //     throw $this->createAccessDeniedException();
+        // }
         /* $form = $this->createFormBuilder($trick)
                     ->add('name')
                     ->add('description')
@@ -109,11 +112,10 @@ class TrickController extends AbstractController
      */
     public function delete(Request $request, Trick $trick, PictureService $pictureService): Response
     {
+        $this->denyAccessUnlessGranted('delete', $trick);
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
             foreach ($trick->getPictures() as $image) 
             {
-           
-            //dump($_SERVER['DOCUMENT_ROOT'].'uploads'. DIRECTORY_SEPARATOR .$image->getFile());
             //unlink($this->getParameter('images_directory'). '/' .$image->getFile());
             $pictureService->deletePicture($image->getFile());
             }
