@@ -39,6 +39,10 @@
 		<div class="inner-banner">
 			<h1><img class="logo_2" src="{{ asset('pictures/logo_1.png') }}" alt="logo"></h1>
 		</div>
+		<!-- button -->
+		{% if arrow is defined %}
+		<a role="button" href="{{ path('homepage') }}#tricks" class="arrow-down"><i class="fas fa-2x fa-arrow-down"></i></a>
+		{% endif %}
 	</section>
 	<!-- end banner -->
 	{% for label, messages in  app.flashes %}

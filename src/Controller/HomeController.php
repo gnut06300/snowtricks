@@ -22,18 +22,19 @@ class HomeController extends AbstractController
             $page = (int)$request->query->get("page", 1);
         }
 
-        $limit = 6 ;//on veut  enregistrement par pages 6
+        $limit = 6 ;//we want 6 records per page
 
-        $start = $limit * $page - $limit; //calcul de l'offset(le début)
-        $total = count($trickRepository->findAll());//Calcul le nombre d'enregistrement
+        $start = $limit * $page - $limit; //offset calculation (the start)
+        $total = count($trickRepository->findAll());//Calculate the number of records
 
-        $pages = ceil($total/$limit);// nbrs de page total arondi à l'entier supérieur
+        $pages = ceil($total/$limit);// total page count rounded to the next whole number
         $tricks=$trickRepository->findBy([],[],$limit,$start);
 
         return $this->render('home/index.html.twig', [
             'tricks' => $tricks,
             'page'=>$page,
-            'pages'=>$pages
+            'pages'=>$pages,
+            'arrow'=>true
         ]);
     }
     

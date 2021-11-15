@@ -57,3 +57,17 @@ ul.videos {
 img.picturesTrick {
   width: 300px;
 }
+
+.arrow-down {
+  position: absolute;
+  bottom: 60px;
+  right: 20px;
+  background-color: #0065FF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  /* width: 50px; */
+  padding: 5px;
+  /* height: 50px; */
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
+}

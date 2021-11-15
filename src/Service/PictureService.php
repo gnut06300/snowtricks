@@ -2,8 +2,10 @@
 
 namespace App\Service;
 
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use App\Entity\Trick;
+use App\Entity\Picture;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class PictureService
 {
@@ -22,6 +24,22 @@ class PictureService
             unlink($picturePath);  
         }
     }
+    
+    public function uploadPictures($pictureFile,Trick $trick)
+    {
+        //we generate a new file name
+        $fichier = md5(uniqid()) . '.' . $pictureFile->guessExtension();
 
+        //we copy the file to the upload folder
+        $pictureFile->move(
+            $this->params->get('images_directory'),
+            $fichier
+        );
+
+        //store the name of the image in the database
+        $img = new Picture();
+        $img->setFile($fichier);
+        $trick->addPicture($img);
+    }
 }
 

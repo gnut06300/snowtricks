@@ -30,7 +30,7 @@ class TrickController extends AbstractController
      * @Route("/trick/new", name="trick_create")
      * @Route("/trick/{slug}/edit", name="trick_edit")
      */
-    public function form(Trick $trick = null,Request $request, SluggerInterface $slugger, EntityManagerInterface $manager): Response
+    public function form(Trick $trick = null,Request $request, SluggerInterface $slugger, EntityManagerInterface $manager, PictureService $pictureService): Response
     {
         if(!$trick){
             $trick = new Trick();
@@ -67,19 +67,20 @@ class TrickController extends AbstractController
 
             //we loop on the pictures
             foreach($pictures as $picture){
-                //we generate a new file name
-                $fichier = md5(uniqid()) . '.' . $picture->guessExtension();
+                // //we generate a new file name
+                // $fichier = md5(uniqid()) . '.' . $picture->guessExtension();
 
-                //we copy the file to the upload folder
-                $picture->move(
-                    $this->getParameter('images_directory'),
-                    $fichier
-                );
+                // //we copy the file to the upload folder
+                // $picture->move(
+                //     $this->getParameter('images_directory'),
+                //     $fichier
+                // );
 
-                //store the name of the image in the database
-                $img = new Picture();
-                $img->setFile($fichier);
-                $trick->addPicture($img);
+                // //store the name of the image in the database
+                // $img = new Picture();
+                // $img->setFile($fichier);
+                // $trick->addPicture($img);
+                $pictureService->uploadPictures($picture,$trick);
             }
 
             $trick->setSlug(strtolower($slugger->slug($trick->getName(),'_')));

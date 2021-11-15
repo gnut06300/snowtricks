@@ -16,7 +16,7 @@
 					{% endif %}
 					<div class="card-body">
 						<h5 class="card-title">{{trick.name}}</h5>
-						<small class="bg-light">Posté le {{ trick.createdAt | date('d/m/Y')}} -  <button type="button" class="btn btn-primary"> Categorie : {{ trick.category.title }}</button></small>
+						<small class="bg-light">Posté le {{ trick.createdAt | date('d/m/Y')}} -  <a href="{{ path('category_view', {'slug': trick.category.slug}) }}" role="button" class="btn btn-primary">{{ trick.category.title }}</a></small>
 						<div class="row">
 						{% for picture in trick.pictures %}
 							<div class="col-lg-4 my-3">
