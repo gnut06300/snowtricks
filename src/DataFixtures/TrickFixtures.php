@@ -60,7 +60,7 @@ class TrickFixtures extends Fixture
                 
                 $manager->persist($category);
 
-                for ($i=1; $i <= mt_rand(1,5) ; $i++) { 
+                for ($i=1; $i <= mt_rand(2,6) ; $i++) { 
                     $trick = new Trick();
         
                     $trick->setName("Trick $u-$j-$i")

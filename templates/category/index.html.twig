@@ -5,53 +5,44 @@
 
 {% block body %}
 	<h1 id="tricks" class="text-center my-5">{{ category.title }}</h1>
-	<div class="row">
-		{% for trick in category.tricks %}
+	{% for trick in category.tricks %}
+		{% if loop.first or (loop.index -1) % 5 == 0 %}
+			<div class="row justify-content-center">
+			{% endif %}
 			<div class="col-lg-2 mb-5">
 				<div class="card shadow-lg">
-					{# <img src="{{ trick.picture }}" class="card-img-top" alt="{{ trick.name}}"> #}
 					{% if trick.pictures | length > 0 %}
-					<img src="{{ asset('/uploads/' ~ trick.pictures[0].file) }}" class="card-img-top" alt="{{ trick.name}}">
+						<img src="{{ asset('/uploads/' ~ trick.pictures[0].file) }}" class="card-img-top" alt="{{ trick.name}}">
 					{% else %}
-					<img src="http://via.placeholder.com/1600x900" class="card-img-top" alt="{{ trick.name}}">	
+						<img src="http://via.placeholder.com/1600x900" class="card-img-top" alt="{{ trick.name}}">
 					{% endif %}
 					<div class="card-body">
-						<h5 class="card-title"><a href="{{ path('trick_show', {'slug': trick.slug }) }}">{{ trick.name}}</a>
-						{# {{% if (app.user and app.user == trick.author) or is_granted('ROLE_ADMIN') %}} #}
-						{% if is_granted('edit', trick) %}
-							<small>
-								<a href="{{ path('trick_edit', {'slug': trick.slug }) }}">
-									<i class="fas fa-pencil-alt"></i>
-								</a>
-								{{ include('trick/_delete_form.html.twig') }}
-							</small>
-						{% endif %}
+						<h5 class="card-title">
+							<a href="{{ path('trick_show', {'slug': trick.slug }) }}#trick">{{ trick.name}}</a>
+							{% if is_granted('edit', trick) %}
+								<small>
+									<a href="{{ path('trick_edit', {'slug': trick.slug }) }}">
+										<i class="fas fa-pencil-alt"></i>
+									</a>
+									{{ include('trick/_delete_form.html.twig') }}
+								</small>
+							{% endif %}
 						</h5>
 						<small class="bg-light">Posté le
-							{{ trick.createdAt | date('d/m/Y')}} -  <span class="badge bg-primary">{{ trick.category.title }}</span></small>
+							{{ trick.createdAt | date('d/m/Y')}}
+							-
+							<a href="{{ path('category_view', {'slug': trick.category.slug}) }}">
+								<span class="badge bg-primary">{{ trick.category.title }}</span>
+							</a>
+						</small>
 						<p class="card-text">{{ trick.description |slice(0, 50)|raw}}...</p>
 						<a href="{{ path('trick_show', {'slug': trick.slug }) }}" class="btn btn-warning">En voir plus</a>
 					</div>
 				</div>
 			</div>
-		{% endfor %}
-	</div>
-	{# <div class="d-flex justify-content-center">
-			  <ul class="pagination">
-			  	 <li class="page-item {% if page == 1 %}disabled{% endif %}">
-			      <a class="page-link" href="{{path('homepage',{'page':page - 1})}}">&laquo;</a>
-			    </li>
-			    {% for i in 1..pages %}
-			    <li class="page-item {% if page== i %}active{% endif %}">
-			      <a class="page-link" href="{{path('homepage',{'page':i})}}">{{i}}</a>
-			    </li>
-				{% endfor %}
-			    <li class="page-item {% if page == pages %}disabled{% endif %}">
-			      <a class="page-link" href="{{path('homepage',{'page':page + 1 })}}">&raquo;</a>
-			    </li>
-			  </ul>
+		{% if loop.last or loop.index % 5 == 0 %}
 			</div>
-		</div> #}
-
+		{% endif %}
+	{% endfor %}
 {% endblock %}
 
