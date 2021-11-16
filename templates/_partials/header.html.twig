@@ -7,24 +7,24 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link" aria-current="page" href="{{ path('homepage') }}">ACCUEIL</a>
+					<a class="nav-link{{ (app.request.attributes.get('_route') == 'homepage') ? ' active' }}" href="{{ path('homepage') }}">ACCUEIL</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('homepage') }}#tricks">TRICKS</a>
 				</li>
 				{% if app.user %}
                 <li class="nav-item">
-					<a class="nav-link" href="{{ path('trick_create')}}">CREER TRICK</a>
+					<a class="nav-link{{ (app.request.attributes.get('_route') == 'trick_create') ? ' active' }}" href="{{ path('trick_create')}}">CREER TRICK</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_logout')}}">DÉCONNEXION</a>
 				</li>
 				{% else %}
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_login')}}">CONNEXION</a>
+					<a class="nav-link{{ (app.request.attributes.get('_route') == 'app_login') ? ' active' }}" href="{{ path('app_login')}}">CONNEXION</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_register')}}">INSCRIPTION</a>
+					<a class="nav-link{{ (app.request.attributes.get('_route') == 'app_register') ? ' active' }}" href="{{ path('app_register')}}">INSCRIPTION</a>
 				</li>
 				{% endif %}
 			</ul>
