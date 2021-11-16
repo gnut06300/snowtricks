@@ -21,7 +21,7 @@ class TrickType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('picture')
+            //->add('picture')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'title',

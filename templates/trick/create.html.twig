@@ -10,16 +10,27 @@
 	{{ form_row(formTrick.name, {'attr': {'placeholder': "Nom du Trick", 'autofocus' : true}, 'label': "Nom du Trick"})}}
 	{{ form_row(formTrick.category, {'label': "Catégorie du Trick"})}}
 	{{ form_row(formTrick.description, {'attr': {'placeholder': "Description du Trick", 'rows' : '8'}, 'label': "Description du Trick"})}}
-	{{ form_row(formTrick.picture, {'attr': {'placeholder': "URL de l'image"}, 'label': "URL de l'image du Trick"})}}
-	{{ form_row(formTrick.pictures, {'label': "Les images du trick"})}}
-	<h3>Vidéos :</h3>
+	{# {{ form_row(formTrick.picture, {'attr': {'placeholder': "URL de l'image"}, 'label': "URL de l'image du Trick"})}} #}
+	{{ form_row(formTrick.pictures, {'label': "Ajouter des images au trick"})}}
+	{% if editMode %}
+	<div class="picturesForm mb-4">
+		<h3 class="mb-2 ms-2">Images présentes : </h3>
+		{% for image in trick.pictures %}
+            <div>
+				<img class="pictureForm mb-2 ms-2" src="{{ asset('/uploads/' ~ image.file) }}" alt="Image">
+                <a href="{{ path('picture_delete', {id: image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}" role="button" class="btn btn-danger ms-2 mb-2">Supprimer l'image</a>
+            </div>
+        {% endfor %}
+	</div>
+	{% endif %}
 	<ul class="videos" data-index="{{ formTrick.videos|length > 0 ? formTrick.videos|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(formTrick.videos.vars.prototype)|e('html_attr') }}">
+		<h3 class="mb-2">Vidéos :</h3>
 		<button type="button" class="add_item_link btn btn-primary mb-3" data-collection-holder-class="videos">Ajouter une vidéo</button>
 		{% for video in formTrick.videos %}
 			<li class="item">{{ form_row(video.url) }}</li>
 		{% endfor %}
 	</ul>
-	<button type="submit" class="btn btn-success">
+	<button type="submit" class="btn btn-success mt-2">
 		{% if editMode %}
 			Enregister les modifications
 		{% else %}
@@ -65,4 +76,5 @@
         addTagFormDeleteLink(items[i])
         }
 	</script>
+	<script src="{{ asset('js/images.js') }}"></script>
 {% endblock %}

@@ -50,7 +50,7 @@ li.item {
 ul.videos {
   border: 1px dashed blue;
   border-radius: 30px;
-  padding: 25px 35px 20px 35px;
+  padding: 10px 35px 20px 35px;
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
 }
 
@@ -58,10 +58,21 @@ img.picturesTrick {
   width: 300px;
 }
 
+.pictureForm {
+  width: 150px;
+}
+
+.picturesForm {
+  border: 1px dashed blue;
+  border-radius: 30px;
+  padding: 10px 35px 20px 35px;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
+}
+
 .arrow-down {
   position: absolute;
-  bottom: 60px;
-  right: 20px;
+  bottom: 80px;
+  right: 30px;
   background-color: #0065FF;
   color: white;
   border: none;

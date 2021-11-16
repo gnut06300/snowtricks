@@ -43,21 +43,6 @@ class Trick
     private $description;
 
     /**
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 255,
-     *      minMessage = "L'url doit faire un minimum de {{ limit }} caractéres",
-     *      maxMessage = "L'url doit faire au maximum {{ limit }} caractéres",
-     *      allowEmptyString = false
-     * )
-     * @Assert\Url(
-     *    message = "The url '{{ value }}' is not a valid url",
-     * )
-     * @ORM\Column(type="string", length=255)
-     */
-    private $picture;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -88,6 +73,11 @@ class Trick
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
     private $videos;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -120,18 +110,6 @@ class Trick
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
 
         return $this;
     }
@@ -240,6 +218,18 @@ class Trick
                 $video->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

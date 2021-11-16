@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
-use App\Entity\Picture;
+//use App\Entity\Picture;
 use App\Form\TrickType;
 use App\Service\PictureService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,7 +54,7 @@ class TrickController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             if (!$trick->getId()) {
-                $trick->setCreatedAt(new \DateTime())
+                $trick->setCreatedAt(new DateTime())
                     ->setAuthor($this->getUser());
                 $this->addFlash('success', "Le Trick \"".$trick->getName()."\" à bien été créé");
            }
@@ -67,23 +68,11 @@ class TrickController extends AbstractController
 
             //we loop on the pictures
             foreach($pictures as $picture){
-                // //we generate a new file name
-                // $fichier = md5(uniqid()) . '.' . $picture->guessExtension();
-
-                // //we copy the file to the upload folder
-                // $picture->move(
-                //     $this->getParameter('images_directory'),
-                //     $fichier
-                // );
-
-                // //store the name of the image in the database
-                // $img = new Picture();
-                // $img->setFile($fichier);
-                // $trick->addPicture($img);
                 $pictureService->uploadPictures($picture,$trick);
             }
 
             $trick->setSlug(strtolower($slugger->slug($trick->getName(),'_')));
+            $trick->setUpdatedAt(new DateTime());
 
             $manager->persist($trick);
             $manager->flush();
@@ -93,6 +82,7 @@ class TrickController extends AbstractController
 
         return $this->render('trick/create.html.twig', [
             'editMode' => $trick->getId() !== null,
+            'trick' => $trick,
             'formTrick' => $form->createView()
         ]);
     }
@@ -129,4 +119,5 @@ class TrickController extends AbstractController
         $this->addFlash('danger', "Le Trick \"" .$trick->getName()."\" à bien été supprimé");
         return $this->redirectToRoute('homepage');
     }
+
 }
