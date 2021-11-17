@@ -33,7 +33,8 @@ class TrickFixtures extends Fixture
                 $gnut,
                 'password'))
             ->setRoles(array('ROLE_ADMIN'))
-            ->setIsVerified(true);
+            ->setIsVerified(true)
+            ->setSlug('gnut');
 
         $manager->persist($gnut);
 
@@ -47,7 +48,8 @@ class TrickFixtures extends Fixture
             ->setPassword($this->passwordEncoder->hashPassword(
                 $user,
                 'password'))
-            ->setIsVerified(true);
+            ->setIsVerified(true)
+            ->setSlug($this->slugger->slug($user->getUserIdentifier())->lower());
 
             $manager->persist($user);
 

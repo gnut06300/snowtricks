@@ -69,6 +69,13 @@ img.picturesTrick {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
 }
 
+.userTricks {
+  border: 1px dashed blue;
+  border-radius: 30px;
+  padding: 10px 0 20px 0;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
+}
+
 .arrow-down {
   position: absolute;
   bottom: 80px;
@@ -81,6 +88,12 @@ img.picturesTrick {
   padding: 5px;
   /* height: 50px; */
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
+}
+
+hr.line {
+  border-top: 5px solid blue;
+  width: 5%;
+  margin: auto;
 }
 
 @media screen and (max-width: 720px) {

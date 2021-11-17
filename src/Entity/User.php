@@ -66,6 +66,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $tricks;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
@@ -205,6 +215,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $trick->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }
