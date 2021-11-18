@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register
+{% form_theme registrationForm _self %}
+
+{% block title %}Inscription
 {% endblock %}
 
 {% block body %}
@@ -17,9 +19,14 @@
 				{{ form_row(registrationForm.email) }}
 				{{ form_row(registrationForm.plainPassword.first) }}
 				{{ form_row(registrationForm.plainPassword.second) }}
-				{{ form_row(registrationForm.agreeTerms, {'label' : 'Vous devez accepter nos conditions.'}) }}
-
-				<button type="submit" class="btn btn-primary mb-4">S'enregister</button>
+				{{ form_row(registrationForm.agreeTerms) }}<a href="#">Mentions légales</a>
+				{# <label for="registration_form_agreeTerms" class="form-check-inline" required>
+				{{ form_widget(registrationForm.agreeTerms) }}
+				<span>J'accepte les <a href="#">mentions légales</a> .</span>
+				</label>
+				</br> #}
+				</br>
+				<button type="submit" class="btn btn-primary my-4">S'enregister</button>
 			</fieldset>
 			{{ form_end(registrationForm) }}
 		</div>

@@ -22,12 +22,14 @@ class RegistrationFormType extends AbstractType
             ->add('username')
             ->add('email', EmailType::class)
             ->add('agreeTerms', CheckboxType::class, [
+                'row_attr' => ['class' => 'form-check-inline'],
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter nos conditions.',
                     ]),
                 ],
+                'label' => 'Vous devez accepter nos conditions voir ici :',
             ])
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,

@@ -17,7 +17,7 @@
 					<a class="nav-link{{ (app.request.attributes.get('_route') == 'trick_create') ? ' active' }}" href="{{ path('trick_create')}}">CREER TRICK</a>
 				</li>
                 <li class="nav-item">
-					<a class="nav-link{{ (app.request.attributes.get('_route') == 'account_index') ? ' active' }}" href="{{ path('account_index')}}">MON COMPTE</a>
+					<a class="nav-link{{ (app.request.attributes.get('_route') == 'account_index') ? ' active' }}" href="{{ path('account_index')}}#userInrface">MON COMPTE</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_logout')}}">DÉCONNEXION</a>

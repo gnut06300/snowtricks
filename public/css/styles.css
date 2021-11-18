@@ -76,6 +76,12 @@ img.picturesTrick {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
 }
 
+.pictureUser {
+  width: 200px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
+}
+
 .arrow-down {
   position: absolute;
   bottom: 80px;
