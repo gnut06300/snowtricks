@@ -28,7 +28,7 @@ class HomeController extends AbstractController
         $total = count($trickRepository->findAll());//Calculate the number of records
 
         $pages = ceil($total/$limit);// total page count rounded to the next whole number
-        $tricks=$trickRepository->findBy([],[],$limit,$start);
+        $tricks=$trickRepository->findBy([],['createdAt' => 'DESC'],$limit,$start);
 
         return $this->render('home/index.html.twig', [
             'tricks' => $tricks,
