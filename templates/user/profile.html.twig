@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de mon avatar{% endblock %}
+
+{% block body %}
+<div class="row mt-5">
+		<div class="col-lg-3"></div>
+		<div class="col-lg-6">
+			{{ form_start(formAccount) }}
+			<fieldset class="userInterface" align="center">
+                <h1 class="text-center my-4" id="userInrface">Modification de l'avatar de {{ user.username }}</h1>
+				{# {{ form_row(formAccount.username, {'attr': {'autofocus' : true}, 'label': "Nom d'utilisateur"}) }} #}
+				{{ form_row(formAccount.picture) }}
+				<button type="submit" class="btn btn-primary my-4">Modifier mon profil</button>
+			</fieldset>
+			{{ form_end(formAccount) }}
+		</div>
+		<div class="col-lg-3"></div>
+	</div>
+{% endblock %}

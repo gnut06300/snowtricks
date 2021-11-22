@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\User;
 use App\Entity\Trick;
 use App\Entity\Picture;
 use Symfony\Component\Filesystem\Filesystem;
@@ -40,6 +41,26 @@ class PictureService
         $img = new Picture();
         $img->setFile($fichier);
         $trick->addPicture($img);
+    }
+
+    public function uploadPicture($pictureFile, User $user)
+    {
+        if($pictureFile){
+            //we generate a new file name
+            $fichier = md5(uniqid()) . '.' . $pictureFile->guessExtension();
+    
+            //we copy the file to the upload folder
+            $pictureFile->move(
+                $this->params->get('images_directory'),
+                $fichier
+            );
+
+            //store the name of the image in the database
+            $user->setPicture($fichier);
+        } else {
+            $user->setPicture('');
+        }
+
     }
 }
 

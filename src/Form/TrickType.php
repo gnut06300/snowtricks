@@ -45,7 +45,7 @@ class TrickType extends AbstractType
                     new All([
                         'constraints' => [
                             new Image([
-                                'allowPortrait' => false,
+                                //'allowPortrait' => false,
                                 //'minWidth' => 20000,
                                 'maxSize' => '4096k',
                             ])

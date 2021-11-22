@@ -96,6 +96,15 @@ img.picturesTrick {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
 }
 
+.carousel-inner {
+  height: 400px;
+}
+
+.carousel-inner img {
+  height: 100%;
+  object-fit: cover;
+}
+
 hr.line {
   border-top: 5px solid blue;
   width: 5%;

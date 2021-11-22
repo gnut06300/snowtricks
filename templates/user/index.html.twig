@@ -6,17 +6,16 @@
 <h1 class="text-center my-4" id="userInrface">Le Compte de : {{user.username | capitalize}}</h1>
 <hr class="line my-4">
 <div class="row">
-				<div class="col-3">
+				<div class="col-lg-3">
                 {% if not user.picture %}
-                    <img class="pictureUser" src="https://via.placeholder.com/200" alt="User">
+                    <img class="pictureUser" src="{{ asset('/pictures/avatar_1.jpg') }}" alt="User">
                 {% else %}
-					<img class="pictureUser" src="{{user.picture }}">
+					<img class="pictureUser" src="{{ asset('/uploads/' ~ user.picture) }}" alt="Avatar de {{ user.username }}">
                 {% endif %}
 				</div>
-				<div class="col-9">
+				<div class="col-lg-9">
 				{% if (user is same as (app.user)) %}
-					<a href="#" class="btn btn-primary mt-3 mb-3">Modifier mon compte</a>
-		 			<a href="#" class="btn btn-primary mt-3 mb-3">Modifier le mot de passe</a>
+					<a href="{{ path('account_profile') }}" class="btn btn-primary mt-3 mb-3">Modifier mon avatar</a>
 		 		{% endif %}
 					<br><span class="badge bg-primary">{{user.tricks | length}} trick(s)</span>
 				</div>
