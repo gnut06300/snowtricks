@@ -1,0 +1,5 @@
+<form class="d-inline" method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce comment ?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+    <button class="btn"><i class="fas fa-trash"></i></button>
+</form>

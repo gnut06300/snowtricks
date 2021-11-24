@@ -94,6 +94,54 @@
 					{{ include('trick/_delete_form.html.twig') }}
 				{% endif %}
 			</div>
+			<div class="row mx-2">
+			<h2 id="comments" class="my-3">Les {{ trick.comments | length}} commentaires </h2>
+			{% if is_granted('create', trick) %}
+				<div class="col-lg-12 my-3">
+					{{ form_start(formComment) }}
+					{{ form_row(formComment.content, {'attr': {'placeholder': "Votre commentaire sur le Trick", 'rows' : '4'}, 'label': "Ajouter un commentaire"})}}
+					<button type="submit" class="btn btn-success my-2">Ajouter le commentaire</button>
+					{{ form_end(formComment) }}
+				</div>
+			{% else %}
+				
+			{% endif %}
+				{% for comment in comments %}
+					<div class="col-lg-2 text-center align-middle commentLine">
+					{% if not comment.author.picture %}
+							<img class="pictureUserComment" src="{{ asset('/pictures/avatar_1.jpg') }}" alt="User">
+						{% else %}
+							<img class="pictureUserComment" src="{{ asset('/uploads/' ~ comment.author.picture) }}" alt="Avatar de {{ comment.author.username }}">
+						{% endif %}</div>
+					<div class="col-lg-8">
+							Posté le
+							{{ comment.createdAt | date('d/m/Y')}}
+							-
+							{{ (comment.updatedAt != null) ? 'Modifé le : ' ~ comment.updatedAt | date('d/m/Y à h:i') ~ ' - '}}
+							Auteur : {{ comment.author.username}}
+							{% if is_granted('edit', comment) %} - <a href="{{ path('comment_edit', {'id': comment.id}) }}"><i class="fas fa-pencil-alt"></i></a>{{ include('comment/_delete_form.html.twig') }}							
+							{% endif %}
+						
+						<p>{{ comment.content }}</P>
+					</div>
+					<div class="col-lg-2"></div>	
+				{% endfor %}
+				<div class="d-flex justify-content-center">
+					<ul class="pagination">
+						<li class="page-item {% if page == 1 %}disabled{% endif %}">
+							<a class="page-link" href="{{path('trick_show',{'slug': trick.slug,'page':page - 1})}}#comments">&laquo;</a>
+						</li>
+						{% for i in 1..pages %}
+							<li class="page-item {% if page == i %}active{% endif %}">
+								<a class="page-link" href="{{path('trick_show',{'slug': trick.slug,'page':i})}}#comments">{{i}}</a>
+							</li>
+						{% endfor %}
+						<li class="page-item {% if page == pages %}disabled{% endif %}">
+							<a class="page-link" href="{{path('trick_show',{'slug': trick.slug,'page':page + 1 })}}#comments">&raquo;</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\User;
 use App\Entity\Trick;
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\Picture;
 use App\Entity\Video;
 use Doctrine\Persistence\ObjectManager;
@@ -91,6 +92,14 @@ class TrickFixtures extends Fixture
                         $video->setUrl("https://www.youtube.com/embed/0Oez89EoE_c")
                             ->setTrick($trick);
                         $manager->persist($video);
+                    }
+
+                    for ($c=1; $c <= mt_rand(3,6) ; $c++) { 
+                        $comment = new Comment();
+                        $comment->setContent("comment $u-$j-$i-$c : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer viverra aliquam elit vel mollis. Aliquam sodales, ex varius pellentesque gravida, justo leo condimentum odio, ac finibus tellus eros ut odio. Nam tempus magna at tristique pellentesque. Duis feugiat commodo molestie. Fusce sed sollicitudin odio, vitae rhoncus purus. In hac habitasse.")
+                                ->setAuthor($user)
+                                ->setTrick($trick);
+                        $manager->persist($comment);
                     }
         
                 }

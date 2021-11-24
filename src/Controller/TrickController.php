@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
-//use App\Entity\Picture;
+use App\Form\CommentType;
 use App\Form\TrickType;
+use App\Repository\CommentRepository;
 use App\Service\PictureService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -88,12 +90,45 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}", name="trick_show")
+     * @Route("/trick/{slug}/", name="trick_show")
      */
-    public function showTricks(Trick $trick): Response
+    public function showTricks(Trick $trick, CommentRepository $commentRepository, Request $request, EntityManagerInterface $manager): Response
     {
+        $comment = new Comment();
+        $formComment = $this->createForm(CommentType::class, $comment);
+
+        $formComment->handleRequest($request);
+
+        if($formComment->isSubmitted() && $formComment->isValid()){
+            $comment->setUpdatedAt(new DateTime())
+                    ->setAuthor($this->getUser())
+                    ->setTrick($trick);
+
+            $manager->persist($comment);
+            $manager->flush();
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
+        }
+        // $page = (int)$request->query->get("page", 1); provoque une erreur si ?page=toto ou 0
+        if(!is_numeric($request->query->get("page", 1)) or (int)$request->query->get("page", 1) <= 0) {
+            $page = 1 ;
+        }  else {
+            $page = (int)$request->query->get("page", 1);
+        }
+
+        $limit = 4 ;//we want 6 records per page
+
+        $start = $limit * $page - $limit; //offset calculation (the start)
+        $total = count($commentRepository->findBy(['trick' => $trick->getId()]));//Calculate the number of records
+
+        $pages = ceil($total/$limit);// total page count rounded to the next whole number
+        $comments=$commentRepository->findBy(['trick' => $trick->getId()],['createdAt' => 'DESC'],$limit,$start);
+
         return $this->render('trick/show.html.twig', [
-            'trick' => $trick
+            'trick' => $trick,
+            'page'=>$page,
+            'pages'=>$pages,
+            'comments'=>$comments,
+            'formComment'=>$formComment->createView()
         ]);
     }
 

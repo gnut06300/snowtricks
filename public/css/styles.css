@@ -82,6 +82,16 @@ img.picturesTrick {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
 }
 
+.pictureUserComment {
+  width: 100px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
+}
+
+.commentLine {
+  min-height: 150px;
+}
+
 .arrow-down {
   position: absolute;
   bottom: 80px;
