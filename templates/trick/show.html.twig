@@ -25,7 +25,7 @@
 						<a href="{{ path('category_view', {'slug': trick.category.slug}) }}" class="badge bg-primary">{{ trick.category.title }}</a>
 					</small>
 					<div class="row mt-3">
-						<div class="col-lg-6 my-3">
+						<div class="col-lg-6 mb-2">
 							<div id="carouselPicturesTricks" class="carousel slide" data-bs-ride="carousel">
 								<div class="carousel-indicators">
 									{% for picture in trick.pictures %}
@@ -50,7 +50,7 @@
 							</div>
 						</div>
 
-						<div class="col-lg-6 my-3">
+						<div class="col-lg-6">
 							<div id="carouselVideoTricks" class="carousel slide" data-bs-ride="carousel">
 								<div class="carousel-indicators">
 									{% for video in trick.videos %}
@@ -75,16 +75,6 @@
 							</div>
 						</div>
 					</div>
-				
-				{# <div class="row">
-										{% for video in trick.videos %}
-											<div class="col-lg-4 my-2">
-												<div class="ratio ratio-16x9">
-													<iframe src="{{ video.url }}" title="Video {{ trick.name }}" allowfullscreen></iframe>
-												</div>
-											</div>
-										{% endfor %}
-									</div> #}
 				<p class="card-text">{{trick.description |  raw}}</p>
 				<h4 class="text-end me-5">Auteur du trick
 					<a href="{{ path('user_show', {'slug': trick.author.slug}) }}">{{trick.author.username}}</a>.</h4>
@@ -104,14 +94,16 @@
 					{{ form_end(formComment) }}
 				</div>
 			{% else %}
-				
+				<div class="alert alert-warning rounded-pill" role="alert">
+				Pour ajouter des commentaires il faut être <a href="{{ path('app_login')}}">connecté</a> ou vous <a href="{{ path('app_register')}}">s'inscrire</a> 
+				</div>
 			{% endif %}
 				{% for comment in comments %}
 					<div class="col-lg-2 text-center align-middle commentLine">
 					{% if not comment.author.picture %}
-							<img class="pictureUserComment" src="{{ asset('/pictures/avatar_1.jpg') }}" alt="User">
+							<img class="pictureUserComment rounded-circle" src="{{ asset('/pictures/avatar_1.jpg') }}" alt="User">
 						{% else %}
-							<img class="pictureUserComment" src="{{ asset('/uploads/' ~ comment.author.picture) }}" alt="Avatar de {{ comment.author.username }}">
+							<img class="pictureUserComment rounded-circle" src="{{ asset('/uploads/' ~ comment.author.picture) }}" alt="Avatar de {{ comment.author.username }}">
 						{% endif %}</div>
 					<div class="col-lg-8">
 							Posté le
