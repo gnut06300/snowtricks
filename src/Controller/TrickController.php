@@ -106,8 +106,8 @@ class TrickController extends AbstractController
 
             $manager->persist($comment);
             $manager->flush();
-            // return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug(),'_anchor' =>'%23comments']);
-            return $this->redirect($this->generateUrl('trick_show', ['slug' => $trick->getSlug()]) .'#comments');
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug(),'_fragment' =>'comments']);
+            // return $this->redirect($this->generateUrl('trick_show', ['slug' => $trick->getSlug()]) .'#comments');
         }
         // $page = (int)$request->query->get("page", 1); provoque une erreur si ?page=toto ou 0
         if(!is_numeric($request->query->get("page", 1)) or (int)$request->query->get("page", 1) <= 0) {

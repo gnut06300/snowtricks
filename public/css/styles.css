@@ -54,6 +54,13 @@ ul.videos {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
 }
 
+.comments {
+  border: 1px dashed blue;
+  border-radius: 30px;
+  padding: 10px 35px 20px 35px;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.336);
+}
+
 img.picturesTrick {
   width: 300px;
 }

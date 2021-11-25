@@ -38,8 +38,7 @@ class CommentController extends AbstractController
             $manager->persist($comment);
             $manager->flush();
             $this->addFlash('success', "Le commentaire à bien été modifié");
-            // return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
-            return $this->redirect($this->generateUrl('trick_show', ['slug' => $trick->getSlug()]) .'#comments');
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug(),'_fragment' =>'comments']);
         }
         return $this->render('comment/index.html.twig', [
             'formComment'=>$formComment->createView(),
@@ -60,7 +59,6 @@ class CommentController extends AbstractController
         }
 
         $this->addFlash('danger', "Le commentaire à bien été supprimé");
-        // return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
-        return $this->redirect($this->generateUrl('trick_show', ['slug' => $trick->getSlug()]) .'#comments');
+        return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug(),'_fragment' =>'comments']);
     }
 }
