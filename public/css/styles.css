@@ -114,7 +114,7 @@ img.picturesTrick {
 }
 
 .carousel-inner {
-  height: 400px;
+  max-height: 400px;
 }
 
 .carousel-inner img {

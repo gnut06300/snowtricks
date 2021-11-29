@@ -39,13 +39,20 @@ class TrickFixtures extends Fixture
 
         $manager->persist($gnut);
 
-        // $product = new Product();
-        // $manager->persist($product);
+    $figures=['Grabs','Rotations','Flips','Rotations désaxées','Slides','One foot tricks','Old school'];
+    for ($j=0; $j < count($figures) ; $j++) { 
+        $category = new Category();
+
+        $category->setTitle($figures[$j])
+                ->setSlug($this->slugger->slug($category->getTitle())->lower());
+                
+        $manager->persist($category);
+
         for ($u=1; $u <= 3 ; $u++) { 
             $user = new User();
 
-            $user->setUsername("test$u")
-            ->setEmail("test$u@gnut.eu")
+            $user->setUsername("test$u$j")
+            ->setEmail("test$u$j@gnut.eu")
             ->setPassword($this->passwordEncoder->hashPassword(
                 $user,
                 'password'))
@@ -54,16 +61,9 @@ class TrickFixtures extends Fixture
 
             $manager->persist($user);
 
-
-            for ($j=1; $j <= mt_rand(1,3) ; $j++) { 
-                $category = new Category();
-    
-                $category->setTitle("Categorie $u-$j")
-                        ->setSlug($this->slugger->slug($category->getTitle())->lower());
                 
-                $manager->persist($category);
 
-                for ($i=1; $i <= mt_rand(2,6) ; $i++) { 
+                for ($i=1; $i <= mt_rand(1,4) ; $i++) { 
                     $trick = new Trick();
         
                     $trick->setName("Trick $u-$j-$i")
@@ -94,7 +94,7 @@ class TrickFixtures extends Fixture
                         $manager->persist($video);
                     }
 
-                    for ($c=1; $c <= mt_rand(3,6) ; $c++) { 
+                    for ($c=1; $c <= mt_rand(11,22) ; $c++) { 
                         $comment = new Comment();
                         $comment->setContent("comment $u-$j-$i-$c : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer viverra aliquam elit vel mollis. Aliquam sodales, ex varius pellentesque gravida, justo leo condimentum odio, ac finibus tellus eros ut odio. Nam tempus magna at tristique pellentesque. Duis feugiat commodo molestie. Fusce sed sollicitudin odio, vitae rhoncus purus. In hac habitasse.")
                                 ->setAuthor($user)

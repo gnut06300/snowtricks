@@ -116,7 +116,7 @@ class TrickController extends AbstractController
             $page = (int)$request->query->get("page", 1);
         }
 
-        $limit = 4 ;//we want 6 records per page
+        $limit = 10 ;//we want 6 records per page
 
         $start = $limit * $page - $limit; //offset calculation (the start)
         $total = count($commentRepository->findBy(['trick' => $trick->getId()]));//Calculate the number of records
