@@ -54,15 +54,6 @@ class HomeController extends AbstractController
      */
     public function tiricksList(TrickRepository $trickRepository, $page = 1, int $limit = 10): Response
     {
-        // $page = (int)$request->query->get("page", 1); provoque une erreur si ?page=toto ou 0
-        // if (!is_numeric($request->query->get("page", 1)) or (int)$request->query->get("page", 1) <= 0) {
-        //     $page = 1;
-        // } else {
-        //     $page = (int)$request->query->get("page", 1);
-        // }
-
-        // $limit = (int)$request->query->get("limit", 10); //we want 10 records per page
-
         $start = $limit * $page - $limit; //offset calculation (the start)
         $total = count($trickRepository->findAll()); //Calculate the number of records
 

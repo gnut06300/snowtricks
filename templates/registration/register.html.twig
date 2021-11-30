@@ -19,14 +19,17 @@
 				{{ form_row(registrationForm.email) }}
 				{{ form_row(registrationForm.plainPassword.first) }}
 				{{ form_row(registrationForm.plainPassword.second) }}
-				{{ form_row(registrationForm.agreeTerms) }}<a href="#">Mentions légales</a>
+				{{ form_row(registrationForm.agreeTerms) }}<a href="{{ path('rgpd') }}#rgpd" target='_blank'>Mentions légales</a>
 				{# <label for="registration_form_agreeTerms" class="form-check-inline" required>
 				{{ form_widget(registrationForm.agreeTerms) }}
 				<span>J'accepte les <a href="#">mentions légales</a> .</span>
 				</label>
 				</br> #}
 				</br>
-				<button type="submit" class="btn btn-primary my-4">S'enregister</button>
+				<button type="submit" class="btn btn-primary my-3">S'enregister</button>
+				<p class="mb-4">
+				<a href="{{ path('app_login') }}">Déjà inscrit</a>
+				</p>
 			</fieldset>
 			{{ form_end(registrationForm) }}
 		</div>
