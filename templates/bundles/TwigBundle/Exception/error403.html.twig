@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée
+{% endblock %}
+
+{% block body %}
+
+		<h1>Désolé, vous n'êtes pas autorisé à accéder à cette page</h1>
+		<a href="{{ path('homepage') }}" class="btn btn-primary">Retour à l'accueil</a>
+	
+{% endblock %}
