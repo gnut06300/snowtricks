@@ -14,7 +14,7 @@ class VideoType extends AbstractType
     {
         $builder
             ->add('url', UrlType::class,[
-                'label' => "Url de la vidéo"
+                'label' => "Url de la vidéo, Youtube ou Dailymotion"
             ])
         ;
     }

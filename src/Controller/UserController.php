@@ -39,7 +39,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success','Le profil : '.$user->getUserIdentifier().' a bien été modifié');
            
-            return $this->redirectToRoute('account_index');
+            return $this->redirectToRoute('user_show', ['slug' => $user->getSlug(),'_fragment' =>'userInrface']);
         
         }
         
