@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadmoreButton = document.getElementById("loadmore");
   updateLink(loadmoreButton);
-  console.log(loadmoreButton);
+  //console.log(loadmoreButton);
   
   // When click on "Load more" button, load next page items in ajax just before the button
   loadmoreButton.addEventListener("click", function (event) {
