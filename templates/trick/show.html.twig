@@ -75,7 +75,7 @@
 							</div>
 						</div>
 					</div>
-				<p class="card-text mt-4">{{trick.description | nl2br |  raw }}</p>
+				<p class="card-text mt-4">{{trick.description | replace({'<p>': "", '</p>': "" , '</P>' : ""}) | nl2br | raw }}</p>
 				<h4 class="text-end me-5">Auteur du trick
 					<a href="{{ path('user_show', {'slug': trick.author.slug}) }}">{{trick.author.username}}</a>.</h4>
 				{# {% if (app.user and app.user == trick.author) or is_granted('ROLE_ADMIN') %} #}
